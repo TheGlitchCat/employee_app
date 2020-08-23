@@ -8,6 +8,7 @@ const pool = new Pool ({
     port:'5432'
 })
 
+// Employees
 
 const getEmployees = async (req, res) => {
     const response = await pool.query('SELECT * FROM employee');
@@ -58,11 +59,67 @@ const deleteEmployeeById = async (req, res) => {
 }
 
 
+// Relations
+
+const getRelations = async (req, res) => {
+    const response = await pool.query('SELECT * FROM rela');
+    res.status(200).json(response.rows);
+}
+
+
+const createRelation = async (req, res) => {
+    const {employee_id, boss_id} = req.body;
+    const response = await pool.query('INSERT INTO rela(employee_id, boss_id) VALUES ($1, $2)', [employee_id, boss_id]);
+    console.log(response);
+    res.json({
+        message: 'Relation Created',
+        body:{
+            relation: {employee_id, boss_id}
+        }
+    });
+}
+
+
+const getRelationById = async (req, res) => {
+    const relation_id = req.params.id;
+    const response = await pool.query('SELECT * FROM rela WHERE id = $1', [relation_id]);
+    res.json(response.rows);
+    
+}
+
+
+const updateRelationById = async (req, res) => {
+    const relation_id = req.params.id;
+    const {employee_id, boss_id} = req.body;
+    const response = await pool.query('UPDATE rela SET employee_id = $1, boss_id = $2 WHERE id = $3', [
+        employee_id, 
+        boss_id,
+        relation_id]);
+
+    res.json('Relation updated');
+    
+}
+
+
+const deleteRelationById = async (req, res) => {
+    const relation_id = req.params.id;
+    const response = await pool.query('DELETE FROM rela WHERE id = $1', [relation_id]);
+    res.json(`Relation ${relation_id} DELETED!`);
+    
+}
+
+
+
 
 module.exports = {
     getEmployees,
     getEmployeeById,
     deleteEmployeeById,
     createEmployee,
-    updateEmployeeById
+    updateEmployeeById,
+    getRelations,
+    createRelation,
+    getRelationById,
+    updateRelationById,
+    deleteRelationById
 }

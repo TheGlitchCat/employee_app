@@ -20,7 +20,7 @@ const getEmployees = async (req, res) => {
 const createEmployee = async (req, res) => {
     const {name, funct} = req.body;
     const response = await pool.query('INSERT INTO employee(name, funct) VALUES ($1, $2)', [name, funct]);
-    console.log(response);
+    // console.log(response);
     res.json({
         message: 'Employee Created',
         body:{
@@ -39,6 +39,7 @@ const getEmployeeById = async (req, res) => {
 
 
 const updateEmployeeById = async (req, res) => {
+    
     const employee_id = req.params.id;
     const {name, funct} = req.body;
     const response = await pool.query('UPDATE employee SET name = $1, funct = $2 WHERE id = $3', [
@@ -70,7 +71,6 @@ const getRelations = async (req, res) => {
 const createRelation = async (req, res) => {
     const {employee_id, boss_id} = req.body;
     const response = await pool.query('INSERT INTO rela(employee_id, boss_id) VALUES ($1, $2)', [employee_id, boss_id]);
-    console.log(response);
     res.json({
         message: 'Relation Created',
         body:{

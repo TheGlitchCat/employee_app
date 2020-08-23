@@ -2,7 +2,7 @@
 
 Install packages
 ```
-    npm i express nodemon pg
+    npm i express nodemon pg cors
 ```
 
 Start server on port 3000
@@ -11,3 +11,5 @@ Start server on port 3000
 ```
 
 Create DB with PostgreSQL using ./database/db.sql
+### Frontend 
+[Angular Frontend](https://github.com/TheGlitchCat/employee_app_front)

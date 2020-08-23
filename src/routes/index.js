@@ -1,9 +1,16 @@
 const { Router } = require('express');
 const router = Router();
 
-router.get('/users', (req, res) => {
-    res.send('users');
-})
+const { getEmployees, 
+        createEmployee, 
+        getEmployeeById, 
+        deleteEmployeeById, 
+        updateEmployeeById } = require('../controller/index.controller');
 
+router.get('/employees', getEmployees)
+router.get('/employees/:id', getEmployeeById)
+router.put('/employees/:id', updateEmployeeById)
+router.delete('/employees/:id', deleteEmployeeById)
+router.post('/employees', createEmployee)
 
 module.exports = router;

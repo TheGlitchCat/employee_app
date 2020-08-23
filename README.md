@@ -9,3 +9,5 @@ Start server on port 3000
 ```
     npm start
 ```
+
+Create DB with PostgreSQL using ./database/db.sql
